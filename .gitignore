@@ -6,3 +6,12 @@ token.json
 __pycache__/
 *.pyc
 *.webm
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Transcripts and personal notes
+*\[*\].txt
+notes to self.txt
+human assessed tickers.txt
