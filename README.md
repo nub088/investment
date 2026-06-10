@@ -50,6 +50,12 @@ investment/
 └── README.md             # This file
 ```
 
+## Pattern reviewer
+
+The scanner feeds into a pattern reviewer UI that displays each candidate's chart with V3 filter metrics (tightness, green/red ratio, SMA slope) alongside the candlestick chart.
+
+![Pattern reviewer — MRVL example](charts/pattern_reviewer.png)
+
 ## See also
 
 - `workflows/scan_top_pattern.md` — the weekly SOP
