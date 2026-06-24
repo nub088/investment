@@ -34,23 +34,27 @@ A weekly stock scanner that pre-filters the broad US equity universe for **Pete 
 
 This project runs on the **WAT framework** — probabilistic AI does the *reasoning*, deterministic Python does the *execution*. The scanner is a funnel; the visual review is the real selection step.
 
-```
-                    ┌──────────────────────────────────────┐
-                    │  WORKFLOWS  (workflows/*.md — the SOP) │
-                    └──────────────────┬───────────────────-┘
-                                       │ reads
-                    ┌──────────────────▼───────────────────-┐
-                    │  AGENT  (Claude — orchestrates, recovers)│
-                    └──────────────────┬───────────────────-┘
-                                       │ runs in sequence
-       ┌───────────────┬───────────────┼───────────────┬───────────────┐
-       ▼               ▼               ▼               ▼               ▼
- [build_universe]  [fetch_ohlcv]  [scan v5 filter] [build_review]  [.tmp/ outputs]
-   NASDAQ list      Stooq/yf       v3_filter.py     HTML page       CSV + Parquet
-       │               │               │               │               │
-       └───────────────┴───────────────┴───────────────┴──────────────-┘
-                                       ▼
-                       [ Human visual review → final pick ]
+```mermaid
+flowchart TB
+    wf[WORKFLOWS<br/>workflows/*.md — the SOP]
+    agent[AGENT<br/>Claude — orchestrates, recovers]
+    wf -->|reads| agent
+
+    subgraph scan["scanner pipeline (deterministic Python)"]
+        direction TB
+        universe[build_universe.py<br/>NASDAQ list · vol ≥ 2M]
+        fetch[fetch_daily_ohlcv.py<br/>~80 daily bars · Stooq → yfinance]
+        filt[scan_retrospective.py<br/>v5 filter · v3_filter.py]
+        review[build_review_page.py<br/>charts + metrics → HTML]
+        universe --> fetch --> filt --> review
+    end
+
+    agent -->|runs in sequence| universe
+    out[(.tmp/ outputs<br/>CSV + Parquet)]
+    filt --> out
+    review --> human
+
+    human[Human visual review<br/>confirm TOP → final pick]
 ```
 
 ### How It Works
