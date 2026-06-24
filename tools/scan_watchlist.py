@@ -133,7 +133,7 @@ def main() -> int:
 
     results.sort(key=sort_key)
 
-    print(f"\nWATCHLIST TOP SCAN — since {since}")
+    print(f"\nWATCHLIST TOP SCAN: since {since}")
     print(f"Tickers: {', '.join(tickers)}")
     for ticker, signals in results:
         print_ticker_report(ticker, signals, since)

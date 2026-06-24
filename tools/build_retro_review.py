@@ -122,7 +122,7 @@ HTML_TEMPLATE = r"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>TOP retro review — {since} ({n} tickers)</title>
+<title>TOP retro review - {since} ({n} tickers)</title>
 <style>
   :root {{
     --bg: #0e1117; --panel: #161b22; --text: #e6edf3; --muted: #7d8590;
@@ -193,7 +193,7 @@ HTML_TEMPLATE = r"""<!doctype html>
   <header>
     <div class="left">
       <div class="progress" id="progress">1 / {n}</div>
-      <div class="ticker" id="hdr-ticker">—</div>
+      <div class="ticker" id="hdr-ticker">-</div>
       <div class="company-name" id="hdr-name"></div>
       <span class="sector-pill" id="hdr-sector"></span>
       <span class="badge" id="hdr-badge"></span>
@@ -206,7 +206,7 @@ HTML_TEMPLATE = r"""<!doctype html>
     <div id="measure-rect"></div>
     <div id="measure-label"></div>
     <div class="overlay">
-      <div id="ov-close">—</div>
+      <div id="ov-close">-</div>
       <div class="legend">
         <span><span class="swatch" style="background:#26a69a"></span>Candles</span>
         <span><span class="swatch" style="background:#ffd166"></span>SMA20</span>
@@ -255,7 +255,7 @@ const sma50Series = chart.addLineSeries({{ color: '#bb86fc', lineWidth: 2, price
 
 let idx = 0;
 
-function fmt(n, d=2) {{ return (n === null || n === undefined || isNaN(n)) ? '—' : Number(n).toFixed(d); }}
+function fmt(n, d=2) {{ return (n === null || n === undefined || isNaN(n)) ? '-' : Number(n).toFixed(d); }}
 function fmtPct(n, d=1) {{ return fmt(n, d) + '%'; }}
 
 function parseStreaks(s) {{
@@ -294,7 +294,7 @@ function render() {{
 
   const lastCandle = c.candles[c.candles.length - 1];
   document.getElementById('ov-close').textContent =
-    `${{c.ticker}}  $${{fmt(c.last_close)}}  (${{lastCandle ? lastCandle.time : '—'}})`;
+    `${{c.ticker}}  $${{fmt(c.last_close)}}  (${{lastCandle ? lastCandle.time : '-'}})`;
 
   candleSeries.setData(c.candles);
   sma20Series.setData(c.sma20);
@@ -454,7 +454,7 @@ def main() -> int:
     ohlcv = pd.read_parquet(ohlcv_path)
     ohlcv["date"] = pd.to_datetime(ohlcv["date"]).dt.date
 
-    # Load cached signals if available — avoids recomputing v3 history for 464 tickers.
+    # Load cached signals if available: avoids recomputing v3 history for 464 tickers.
     signals_by_ticker: dict[str, set[str]] = {}
     signals_path = latest_match("signals_*.parquet")
     if signals_path:
@@ -465,7 +465,7 @@ def main() -> int:
         for t, grp in passing.groupby("ticker"):
             signals_by_ticker[t] = {d.isoformat() for d in grp["date"]}
     else:
-        print("  (no signals parquet — will recompute on the fly)", file=sys.stderr)
+        print("  (no signals parquet - will recompute on the fly)", file=sys.stderr)
 
     # Load company info cache if present
     company_by_ticker: dict[str, dict] = {}
@@ -485,7 +485,7 @@ def main() -> int:
             print(f"  WARNING: {len(missing)} retro tickers have no company info "
                   f"(run: python tools/fetch_company_info.py)", file=sys.stderr)
     else:
-        print("  (no company_info.parquet — sidebar will omit descriptions; "
+        print("  (no company_info.parquet - sidebar will omit descriptions; "
               "run fetch_company_info.py)", file=sys.stderr)
 
     print(f"Building payload for {len(retro)} tickers...", file=sys.stderr)

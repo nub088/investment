@@ -86,7 +86,7 @@ def parse_listed_file(text: str, source: str) -> pd.DataFrame:
 def filter_symbol_quality(df: pd.DataFrame) -> pd.DataFrame:
     """Drop preferred shares, warrants, rights, units, etc. via symbol patterns.
 
-    Heuristics chosen to be conservative — we err on the side of keeping
+    Heuristics chosen to be conservative: we err on the side of keeping
     legitimate stocks (e.g., BRK.B, BF.B) and let the volume screen handle
     anything weird that slips through.
     """
@@ -94,7 +94,7 @@ def filter_symbol_quality(df: pd.DataFrame) -> pd.DataFrame:
     # Drop symbols with $ (preferred shares) and ^ (warrants on NASDAQ Trader)
     mask = ~t.str.contains(r"[\$\^]", regex=True, na=False)
     # Drop common non-stock suffixes when symbol length suggests it (4+ chars)
-    # W = warrant, R = right, U = unit — only suffix-match for symbols >= 4 chars
+    # W = warrant, R = right, U = unit: only suffix-match for symbols >= 4 chars
     mask &= ~((t.str.len() >= 4) & t.str.endswith(("W", "R", "U", "WS", "RT")))
     # Drop test/dev symbols starting with ZZZ
     mask &= ~t.str.startswith("ZZZ")

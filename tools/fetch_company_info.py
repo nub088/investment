@@ -7,7 +7,7 @@ operational description (what the company does today), not historical.
 Cache: .tmp/company_info.parquet
 Columns: ticker, name, short_name, sector, industry, summary, country, website, fetched_at
 
-Incremental by default — only fetches tickers not in the cache. Use --refresh
+Incremental by default: only fetches tickers not in the cache. Use --refresh
 to overwrite. Tickers older than --max-age-days are also re-fetched.
 
 Usage:
@@ -85,13 +85,13 @@ def main() -> int:
     elif args.from_universe:
         u_path = TMP_DIR / "universe.csv"
         if not u_path.exists():
-            sys.exit("ERROR: .tmp/universe.csv missing — run build_universe.py first.")
+            sys.exit("ERROR: .tmp/universe.csv missing - run build_universe.py first.")
         tickers = pd.read_csv(u_path)["ticker"].tolist()
     else:
         since = args.from_retro or "2026-01-01"
         retro_path = TMP_DIR / f"top_retrospective_{since}.csv"
         if not retro_path.exists():
-            sys.exit(f"ERROR: {retro_path} missing — run scan_retrospective.py first.")
+            sys.exit(f"ERROR: {retro_path} missing - run scan_retrospective.py first.")
         tickers = pd.read_csv(retro_path)["ticker"].tolist()
 
     cache = load_cache()
@@ -112,7 +112,7 @@ def main() -> int:
           f"to fetch: {len(to_fetch)}", file=sys.stderr)
 
     if not to_fetch:
-        print("Nothing to fetch — cache is current.", file=sys.stderr)
+        print("Nothing to fetch - cache is current.", file=sys.stderr)
         return 0
 
     rows: list[dict] = []
@@ -128,7 +128,7 @@ def main() -> int:
                 rows.append(r)
 
     if not rows:
-        print("No rows fetched — check Yahoo rate-limit / connectivity.", file=sys.stderr)
+        print("No rows fetched - check Yahoo rate-limit / connectivity.", file=sys.stderr)
         return 1
 
     new_df = pd.DataFrame(rows, columns=COLUMNS)

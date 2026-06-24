@@ -96,7 +96,7 @@ HTML_TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>TOP review — {scan_date} ({n} candidates)</title>
+<title>TOP review - {scan_date} ({n} candidates)</title>
 <style>
   :root {{
     --bg: #0e1117;
@@ -158,7 +158,7 @@ HTML_TEMPLATE = """<!doctype html>
   <header>
     <div class="left">
       <div class="progress" id="progress">1 / {n}</div>
-      <div class="ticker" id="hdr-ticker">—</div>
+      <div class="ticker" id="hdr-ticker">-</div>
       <div class="name" id="hdr-name"></div>
     </div>
     <div class="right">
@@ -169,7 +169,7 @@ HTML_TEMPLATE = """<!doctype html>
     <div id="measure-rect"></div>
     <div id="measure-label"></div>
     <div class="overlay">
-      <div id="ov-close">—</div>
+      <div id="ov-close">-</div>
       <div class="legend">
         <span><span class="swatch" style="background:#26a69a"></span>Candles</span>
         <span><span class="swatch" style="background:#ffd166"></span>SMA20</span>
@@ -203,7 +203,7 @@ const sma50Series = chart.addLineSeries({{ color: '#bb86fc', lineWidth: 2, price
 
 let idx = 0;
 
-function fmt(n, d=2) {{ return (n === null || n === undefined || isNaN(n)) ? '—' : Number(n).toFixed(d); }}
+function fmt(n, d=2) {{ return (n === null || n === undefined || isNaN(n)) ? '-' : Number(n).toFixed(d); }}
 function fmtPct(n, d=2) {{ return fmt(n, d) + '%'; }}
 function fmtInt(n) {{ return Math.round(n).toLocaleString(); }}
 

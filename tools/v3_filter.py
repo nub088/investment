@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v3 LOCKED TOP-pattern filter — shared implementation.
+"""v3 LOCKED TOP-pattern filter: shared implementation.
 
 Single source of truth for the rolling-window scanner rules. Imported by
 compute_top_signals.py, scan_retrospective.py, scan_watchlist.py,
@@ -8,7 +8,7 @@ build_retro_review.py, and check_v3_single.py.
 v3 rules over a rolling WINDOW (20 trading-day) end-anchored window:
   R1:  >= MIN_PCT_ABOVE % of closes above SMA20  (>=18 of 20 at 90%)
   R2b: sum(green bodies) >= BODY_RATIO * sum(red bodies)  (1.5x)
-       Body-size weighted — captures Pete's "reds smaller than greens" intuition
+       Body-size weighted: captures Pete's "reds smaller than greens" intuition
        directly, instead of the brittle count-based R2a it replaces.
   R4:  SMA20 SLOPE_WINDOW-day slope > 0  (5-day positive)
   R5:  close > MIN_PRICE  (penny-stock floor; excludes pump-and-dumps)
@@ -53,7 +53,7 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
 def rolling_signals(df: pd.DataFrame) -> pd.DataFrame:
     """Return daily pass/fail + supporting metrics for one ticker's history.
 
-    Input may have indicators already (from add_indicators) or not — we'll add
+    Input may have indicators already (from add_indicators) or not, we'll add
     them if missing. Output rows start at the first bar where SMA20 + slope are
     valid; earlier bars are dropped.
 
@@ -147,7 +147,7 @@ def streaks_from_signals(
 ) -> list[tuple[date, date, int]]:
     """Return contiguous qualifying streaks as (start, end, length) tuples.
 
-    Counts in place — no per-streak dataframe filtering. signals must have
+    Counts in place: no per-streak dataframe filtering. signals must have
     'date' and 'pass' columns in chronological order.
     """
     streaks: list[tuple[date, date, int]] = []

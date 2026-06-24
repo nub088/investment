@@ -7,8 +7,8 @@ at least --min-streak consecutive days. Output is sorted to put the most
 actionable names (currently passing + longest streak) at the top.
 
 Outputs:
-    .tmp/top_retrospective_<since>.csv      — per-ticker summary
-    .tmp/signals_<scan_date>.parquet        — daily pass/fail history
+    .tmp/top_retrospective_<since>.csv      - per-ticker summary
+    .tmp/signals_<scan_date>.parquet        - daily pass/fail history
                                               (consumed by build_retro_review.py)
 
 Usage:
@@ -124,7 +124,7 @@ def main() -> int:
               file=sys.stderr)
 
     if not summary_rows:
-        print("No qualifying tickers — exiting.", file=sys.stderr)
+        print("No qualifying tickers, exiting.", file=sys.stderr)
         return 0
 
     summary = pd.DataFrame(summary_rows)
@@ -140,7 +140,7 @@ def main() -> int:
     print(f"Saved summary → {out_path}", file=sys.stderr)
 
     # Console report
-    print(f"\nRETROSPECTIVE TOP SCAN — since {since}  (streaks >= {args.min_streak}d)")
+    print(f"\nRETROSPECTIVE TOP SCAN: since {since}  (streaks >= {args.min_streak}d)")
     print(f"{'Ticker':<8} {'First':>12} {'Pass%':>6} {'LongStrk':>9} {'Curr':>5}  Streaks")
     print("-" * 95)
     for r in summary.itertuples(index=False):

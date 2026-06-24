@@ -5,7 +5,7 @@ Proposed rules (user 2026-05-20), evaluated over a rolling 20-trading-day window
   R1: >=90% of closes in window above SMA20  (>=18 of 20)
   R2a: greens >= 1.75 * reds  (literal "75% more")
   R2b: greens >= 0.75 * total  (shorthand "75% are greens")
-  R3:  leading-edge tightness — first 5 days of window have avg daily range pct below threshold
+  R3:  leading-edge tightness: first 5 days of window have avg daily range pct below threshold
        (sweeps a few thresholds; reports what's found)
   R4:  SMA20 5-day slope > 0
 
@@ -67,7 +67,7 @@ def evaluate(df: pd.DataFrame, ticker: str) -> dict:
         r1 = pct_above >= 90
         r2a = greens >= 1.75 * reds  # literal
         r2b = greens >= 0.75 * WINDOW  # shorthand
-        # No fixed R3 threshold yet — just record metric
+        # No fixed R3 threshold yet, just record metric
         r4 = pd.notna(slope) and slope > 0
 
         rows.append({
@@ -142,7 +142,7 @@ def main() -> int:
     print(summary_df.to_string(index=False))
 
     print("\n" + "=" * 100)
-    print("LEADING-EDGE TIGHTNESS (R3) — per-ticker distribution of lead_avg_range% on qualifying days")
+    print("LEADING-EDGE TIGHTNESS (R3): per-ticker distribution of lead_avg_range% on qualifying days")
     print("=" * 100)
     for ticker, fname in TICKERS.items():
         path = TMP / fname
@@ -154,7 +154,7 @@ def main() -> int:
         if qual.empty:
             print(f"  {ticker}: no qualifying days")
             continue
-        print(f"  {ticker}: lead_avg_range% across qualifying days — "
+        print(f"  {ticker}: lead_avg_range% across qualifying days: "
               f"min={qual['lead_avg_range%'].min():.2f}  "
               f"median={qual['lead_avg_range%'].median():.2f}  "
               f"max={qual['lead_avg_range%'].max():.2f}")

@@ -37,7 +37,7 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
-# yfinance is noisy on stderr — quiet it down.
+# yfinance is noisy on stderr: quiet it down.
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 import yfinance as yf  # noqa: E402
 

@@ -3,7 +3,7 @@
 ## Objective
 
 Produce a weekly shortlist of US-listed stocks that pass the **v3 TOP scanner filter**
-(Tight Orderly Progression — Pete Stolzers). The shortlist is not a buy list — it's
+(Tight Orderly Progression, Pete Stolzers). The shortlist is not a buy list, it's
 the universe of candidates worth visually reviewing on the daily chart for full TOP
 character (tightness, AVWAP-E support, relative strength, catalyst context).
 
@@ -11,7 +11,7 @@ This is **Phase 1: Price Action**. Fundamentals are human judgment, not automate
 
 ## When to run
 
-- **Weekly** — Sunday evening or Monday pre-open.
+- **Weekly**: Sunday evening or Monday pre-open.
 - Universe rebuild is **monthly** (the listed universe changes slowly).
 
 ## Prerequisites
@@ -71,7 +71,7 @@ python tools/compute_top_signals.py
   (low median range × high G:R × steep slope)
 
 **Expected output size:** 30–150 names (much smaller than prior single-day filter, which
-produced 300–900). v3 trades early detection for precision — the 20-day window means
+produced 300–900). v3 trades early detection for precision, the 20-day window means
 **a name only appears ~1 month after its visual TOP-start**.
 
 ### 4. Review the output
@@ -80,12 +80,12 @@ Open `.tmp/top_candidates_YYYY-MM-DD.csv` in a spreadsheet tool.
 
 **Recommended manual review pass:**
 
-1. Default sort puts **measured TOPs first** — those are the highest-confidence
+1. Default sort puts **measured TOPs first**: those are the highest-confidence
    stealth-accumulation candidates (per [[feedback-top-review-tiebreaker]]).
 2. For each name, click `chart_url`, look at the daily chart.
 3. Walk back ~30 days from `last_date` to identify the **visual TOP-start**:
    typically a reversal/change-of-character candle from a base, often still
-   below SMA20. This is the entry context — useful for sizing/risk but not
+   below SMA20. This is the entry context: useful for sizing/risk but not
    the entry timing (entry is "now" = scanner firing).
 4. Apply full pattern checklist from [[project-top-pattern-definition]]:
    tight rhythm, EMA-8 hugging, shallow dips, AVWAP-E support, recent earnings.
@@ -114,7 +114,7 @@ and validation evidence against SNDK/WDC/GLW/BE/RBLX training tickers.
   surface a name only after ~1 month of pattern formation. This is by design,
   not a bug. See [[project-top-scanner-filter]] for details.
 - **Universe drift**: ticker delistings between universe-build and fetch result
-  in empty data for those names — they simply don't appear in the output.
+  in empty data for those names, they simply don't appear in the output.
 
 ## Verification (after each run)
 
@@ -127,7 +127,7 @@ and validation evidence against SNDK/WDC/GLW/BE/RBLX training tickers.
 
 ## Outputs delivered
 
-- `.tmp/top_candidates_YYYY-MM-DD.csv` — the weekly shortlist
+- `.tmp/top_candidates_YYYY-MM-DD.csv`: the weekly shortlist
 - Google Sheets push is **deferred** (Phase 1.5). The CSV stands in for now.
 
 ## Self-improvement notes
@@ -136,5 +136,5 @@ When something breaks or surprises you, update this workflow:
 - Stooq rate limit issues? Document the worker count that worked and any required delays.
 - Discovered a TOP-pattern winner the v3 filter missed? Note ticker + window. Add to
   the 5-ticker training set in `project_top_training_queue.md` once user confirms.
-- Discovered noise in the output? Don't add a rule unilaterally — flag for user review.
+- Discovered noise in the output? Don't add a rule unilaterally, flag for user review.
   The training set is locked; rule changes need validation against all 5 examples.

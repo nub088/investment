@@ -162,16 +162,16 @@ def main() -> int:
 
     # Cross-ticker comparison: median by ticker, for each metric
     print("\n" + "=" * 110)
-    print("CROSS-TICKER COMPARISON — median value on QUALIFYING days")
+    print("CROSS-TICKER COMPARISON: median value on QUALIFYING days")
     print("=" * 110)
     combined = pd.concat(all_qual, ignore_index=True)
     print(combined.groupby("ticker")[
         ["lead_range%", "M1_lead_vs_base", "M2_lead_vs_win", "M3_win_vs_base", "M4_lead_pctile"]
     ].median().round(2).to_string())
 
-    # Compare qualifying vs non-qualifying days — does any metric SEPARATE them?
+    # Compare qualifying vs non-qualifying days: does any metric SEPARATE them?
     print("\n" + "=" * 110)
-    print("DISCRIMINATION CHECK — qualifying vs non-qualifying days, all tickers combined")
+    print("DISCRIMINATION CHECK: qualifying vs non-qualifying days, all tickers combined")
     print("=" * 110)
     qual_all = pd.concat(all_qual, ignore_index=True)
     nonqual_all = pd.concat(all_nonqual, ignore_index=True)
